@@ -1,4 +1,4 @@
-<div class="w-full py-14 flex justify-center items-center px-52 bg-white max-xl:px-5">
+<div class="w-full py-14 flex justify-center items-center px-52 bg-white max-2xl:px-5">
     <div class="w-full flex justify-start items-start max-xl:grid max-xl:grid-cols-1 max-xl:gap-10">
         <div class="grid grid-cols-1 gap-5 w-1/5 max-xl:w-full">
             <h1 class="text-2xl font-black">LOKASI</h1>
@@ -36,7 +36,8 @@
                 <img class="h-6" src="images/icons/link_icon.png" alt="">
             </a>
         </div>  
-        <div class="h-[175px] flex justify-end items-end max-xl:w-full max-xl:flex max-xl:justify-start max-xl:items-start max-md:h-auto">
+        <div class="h-[175px] flex flex-col justify-end items-center max-xl:w-full max-xl:flex max-xl:justify-start max-xl:items-start max-md:h-auto gap-8 max-xl:gap-4">
+            <img class="h-24 max-xl:h-20" src="images/logos/logo.png" alt="">
             <h1 class="text-zinc-400 text-right max-xl:text-left">Copyright ©️ Graha Menara Hijau. All Rights Reserved | 2025</h1>
         </div>  
     </div>
