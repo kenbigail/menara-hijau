@@ -7,12 +7,13 @@
             <div class="shrink-0 flex items-center gap-3 w-[500px] max-md:w-[300px]">
                 <a href="{{ route('home') }}">
                     <img class="h-16" src="images/logos/logo.png" alt="">
-                </a>
                 <div class="border-l-2 border-[#017B48] flex justify-center items-start pl-[3%] flex-col">
                     <h1 class="text-[#017B48] font-bold text-xl">Menara Hijau</h1>
                     <h1 class="text-neutral-600 text-sm">A Better Place to be Your Office.</h1>
                     </a>
                 </div>
+            </a>
+
             </div>
             <!-- Navigation Links -->
             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex "> 
@@ -23,16 +24,10 @@
                     {{ __('Home') }}
                 </x-nav-link>
 
-                <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')"
+                <x-nav-link :href="route('lantai.index')" :active="request()->routeIs('lantai.index')"
                     Icon="images/icons/floor_icon_inactive.png" 
-                    activeIcon="images/icons/floor_icon.png">
+                    activeIcon="images/icons/floor_icon_active.png">
                     {{ __('Pilih Lantai') }}
-                </x-nav-link>
-
-                <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')"
-                    Icon="images/icons/info_icon_inactive.png" 
-                    activeIcon="images/icons/info_icon.png">
-                    {{ __('Pusat Bantuan') }}
                 </x-nav-link>
 
             </div>
@@ -97,11 +92,8 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
+            <x-responsive-nav-link :href="route('lantai.index')" :active="request()->routeIs('lantai.index')">
                 {{ __('Pilih Lantai') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
-                {{ __('Pusat Bantuan') }}
             </x-responsive-nav-link>
         </div>
 
