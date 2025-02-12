@@ -18,7 +18,7 @@
                     class="z-10 hidden bg-white divide-y divide-gray-200 rounded-lg shadow-sm w-44 ">
                     <ul class="py-2 text-lg text-gray-700 " aria-labelledby="dropdownDefaultButton">
                         <li>
-                            <a href="{{route('dashboard')}}"
+                            <a href="{{route('ruang')}}"
                                 class="block px-4 py-2 hover:bg-gray-100 text-center">Dashboard</a>
                         </li>
                     </ul>

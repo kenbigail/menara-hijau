@@ -35,7 +35,7 @@ class LantaiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('lantai.detail');
     }
 
     /**
