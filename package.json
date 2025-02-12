@@ -17,6 +17,8 @@
         "vite": "^6.0"
     },
     "dependencies": {
+        "@preline/datatable": "^2.5.2",
+        "datatables.net-dt": "^2.2.2",
         "flowbite": "^3.0.0"
     }
 }

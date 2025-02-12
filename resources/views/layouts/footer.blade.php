@@ -1,4 +1,4 @@
-<div class="w-full py-14 flex justify-center items-center px-52 bg-white max-2xl:px-5">
+<div class="w-full py-14 flex justify-center items-center px-52 bg-white max-2xl:px-5 border-t">
     <div class="w-full flex justify-start items-start max-xl:grid max-xl:grid-cols-1 max-xl:gap-10">
         <div class="grid grid-cols-1 gap-5 w-1/5 max-xl:w-full">
             <h1 class="text-2xl font-black">LOKASI</h1>

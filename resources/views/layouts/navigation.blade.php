@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 justify-between sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto justify-between max-xl:px-4">
         <div class="flex justify-between">
         <div class="flex items-center justify-between w-full h-24 ">
             <!-- Logo -->
@@ -24,7 +24,7 @@
                     {{ __('Home') }}
                 </x-nav-link>
 
-                <x-nav-link :href="route('lantai.index')" :active="request()->routeIs('lantai.index')"
+                <x-nav-link :href="route('lantai')" :active="request()->routeIs('lantai')"
                     Icon="images/icons/floor_icon_inactive.png" 
                     activeIcon="images/icons/floor_icon_active.png">
                     {{ __('Pilih Lantai') }}
@@ -92,7 +92,7 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('lantai.index')" :active="request()->routeIs('lantai.index')">
+            <x-responsive-nav-link :href="route('lantai')" :active="request()->routeIs('lantai')">
                 {{ __('Pilih Lantai') }}
             </x-responsive-nav-link>
         </div>
