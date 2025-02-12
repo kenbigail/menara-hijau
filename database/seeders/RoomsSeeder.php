@@ -12,17 +12,42 @@ class RoomsSeeder extends Seeder
      */
     public function run(): void
     {
-        $floorIds = DB::table('floors')->pluck('id');
-
         DB::table('rooms')->insert([
-            'id_floor' => $floorIds[1],
-            'name_room' => 'Kiani 1',
-            'facilities' => json_encode(['WiFi', 'Projector', 'Air Conditioning']),
-            'contact' => 'https://wa.me/6281234567890',
-            'categories' => 'office room',
-            'availability' => 'available',
-            'created_at' => now(),
-            'updated_at' => now(),
+            [
+                'id_floor' => 1, // Manually choose the floor ID
+                'name_room' => 'Kiani 1',
+                'images' => json_encode([]),
+                'facilities' => json_encode(['WiFi', 'Projector', 'Air Conditioning']),
+                'contact' => 'https://wa.me/6281234567890',
+                'categories' => 'office room',
+                'availability' => 'available',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_floor' => 3, // Manually choose the floor ID
+                'name_room' => 'Kiani 1',
+                'images' => json_encode([]),
+                'facilities' => json_encode(['WiFi', 'Projector', 'Air Conditioning']),
+                'contact' => 'https://wa.me/6281234567890',
+                'categories' => 'ballroom',
+                'availability' => 'available',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id_floor' => 3, // Manually choose the floor ID
+                'name_room' => 'Kiani 1',
+                'images' => json_encode([]),
+                'facilities' => json_encode(['WiFi', 'Projector', 'Air Conditioning']),
+                'contact' => 'https://wa.me/6281234567890',
+                'categories' => 'working space',
+                'availability' => 'available',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
+
+        $this->command->info('Rooms have been seeded with manually assigned floor IDs!');
     }
 }

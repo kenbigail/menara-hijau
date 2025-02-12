@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_floor')->unsigned();
+            $table->unsignedBigInteger('id_floor');
             $table->string('name_room');
             $table->json('images')->nullable();
             $table->string('facilities');
@@ -21,6 +21,8 @@ return new class extends Migration
             $table->enum('categories', ['ballroom', 'office room', 'working space']);
             $table->enum('availability', ['available', 'unavailable']);
             $table->timestamps();
+
+            $table->foreign('id_floor')->references('id')->on('floors')->onDelete('cascade');
         });
     }
 
