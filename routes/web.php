@@ -8,7 +8,9 @@ Route::get('/', function () {return view('home');})->name('home');
 
 Route::get('/home', function () {return view('welcome');})->name('welcome');
 
-Route::resource('lantai', LantaiController::class);
+Route::get('/lantai', function () {return view('lantai.index');})->name('lantai');
+
+Route::get('/ruang', function () {return view('lantai.detail');})->name('ruang');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

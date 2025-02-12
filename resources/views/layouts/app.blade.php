@@ -11,6 +11,15 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- Tambahkan di <head> -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/preline@2.0.0/dist/preline.css">
+        <script src="https://cdn.jsdelivr.net/npm/preline@2.0.0/dist/preline.js"></script>
+
+        <!-- DataTables Tailwind CSS -->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwindcss.min.css">
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.tailwindcss.min.js"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
