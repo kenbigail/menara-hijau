@@ -7,7 +7,7 @@
                 <h1 class="text-2xl text-gray-500">Halo! Selamat Datang di</h1>
                 <h1 class="text-7xl font-bold max-md:text-6xl">Booking Portal<br><span class="text-[#017B48]">PT. Menara Hijau</span></h1>
                 <h1 class="text-2xl text-gray-500">Temukan berbagai macam Ruangan & Lantai yang dapat gunakan di <strong>PT. Menara Hijau!</strong></h1>
-                    <a class="px-8 text-2xl font-bold py-5 bg-[#D71E21] text-white rounded-md hover:bg-[#d71e21da] flex justify-center items-center gap-4" href="">
+                    <a class="px-8 text-2xl font-bold py-5 bg-[#D71E21] text-white rounded-md hover:bg-[#d71e21da] flex justify-center items-center gap-4" href="{{route('lantai')}}">
                         <img class="h-8" src="images/icons/book_icon.png" alt="">
                         Booking Sekarang!
                     </a>
