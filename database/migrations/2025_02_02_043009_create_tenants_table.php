@@ -22,6 +22,8 @@ return new class extends Migration
             $table->date('date_end');
             $table->enum('status', ['ongoing', 'waiting', 'finished']);
             $table->timestamps();
+            $table->foreign('id_floor')->references('id')->on('floors')->onDelete('cascade');
+            $table->foreign('id_room')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 
