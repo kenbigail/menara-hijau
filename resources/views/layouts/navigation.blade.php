@@ -24,7 +24,7 @@
                     {{ __('Home') }}
                 </x-nav-link>
 
-                <x-nav-link :href="route('lantai')" :active="request()->routeIs('lantai')"
+                <x-nav-link :href="route('lantai.index')" :active="request()->routeIs('lantai.index')"
                     Icon="images/icons/floor_icon_inactive.png" 
                     activeIcon="images/icons/floor_icon_active.png">
                     {{ __('Pilih Lantai') }}
@@ -92,7 +92,7 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('lantai')" :active="request()->routeIs('lantai')">
+            <x-responsive-nav-link :href="route('lantai.index')" :active="request()->routeIs('lantai.index')">
                 {{ __('Pilih Lantai') }}
             </x-responsive-nav-link>
         </div>
