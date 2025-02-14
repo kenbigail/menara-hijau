@@ -48,6 +48,7 @@ class RoomsSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
+
         $this->command->info('Rooms have been seeded with manually assigned floor IDs!');
     }
 }
