@@ -10,6 +10,7 @@ class RoomsSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
     public function run(): void
     {
         DB::table('rooms')->insert([
@@ -25,8 +26,8 @@ class RoomsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_floor' => 3, // Manually choose the floor ID
-                'name_room' => 'Kiani 1',
+                'id_floor' => 2, // Manually choose the floor ID
+                'name_room' => 'Kiani 2',
                 'images' => json_encode([]),
                 'facilities' => json_encode(['WiFi', 'Projector', 'Air Conditioning']),
                 'contact' => 'https://wa.me/6281234567890',
@@ -37,7 +38,7 @@ class RoomsSeeder extends Seeder
             ],
             [
                 'id_floor' => 3, // Manually choose the floor ID
-                'name_room' => 'Kiani 1',
+                'name_room' => 'Kiani 3',
                 'images' => json_encode([]),
                 'facilities' => json_encode(['WiFi', 'Projector', 'Air Conditioning']),
                 'contact' => 'https://wa.me/6281234567890',
