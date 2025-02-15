@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('desc')->nullable();
             $table->string('avatar')->default('avatar.png')->nullable();
+            $table->enum('role', ['admin', 'superAdmin'])->default('admin');
             $table->rememberToken();
             $table->timestamps();
         });
