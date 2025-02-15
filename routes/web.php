@@ -6,14 +6,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDashController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {return view('home');})->name('home');
+// Halaman utama
+Route::get('/', function () { return view('home'); })->name('home');
+Route::get('/home', function () { return view('welcome'); })->name('welcome');
 
-Route::get('/home', function () {return view('welcome');})->name('welcome');
+// Resource route untuk lantai
+Route::resource('lantai', LantaiController::class);
 
-Route::get('/lantai', function () {return view('lantai.index');})->name('lantai');
+// Route custom untuk mendapatkan ruangan berdasarkan lantai
+Route::get('/lantai/{floorId}/ruangan', [LantaiController::class, 'getRoomsByFloor']);
+Route::get('/ruang/{roomId}', [LantaiController::class, 'show'])->name('lantai.show');
 
-Route::get('/ruang', function () {return view('lantai.detail');})->name('ruang');
-
+<<<<<<< HEAD
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -25,6 +29,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+=======
+// Route dengan middleware auth
+>>>>>>> cf2a63869c68d89bddbec1e0ab9be78024474c60
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -32,3 +39,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+

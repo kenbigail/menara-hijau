@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Floors;
+use App\Models\Rooms;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class LantaiController extends Controller
 {
@@ -11,8 +15,24 @@ class LantaiController extends Controller
      */
     public function index()
     {
-        return view('lantai.index');
+        $lantai = Floors::all();
+        $ruang = Rooms::all();
+
+        return view('lantai.index', compact('lantai', 'ruang'));
     }
+
+    public function getRoomsByFloor($floorId)
+    {
+        // Ambil data ruangan berdasarkan id lantai
+        $rooms = Rooms::where('id_floor', $floorId)
+            ->select('id', 'name_room as nama_ruang', 'availability') // Pilih kolom yang diperlukan, termasuk availability
+            ->get();
+        
+        // Kembalikan data ruangan dalam format JSON
+        return response()->json($rooms);
+    }
+    
+
 
     /**
      * Show the form for creating a new resource.
@@ -33,10 +53,40 @@ class LantaiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        return view('lantai.detail');
-    }
+
+
+     public function show(string $id)
+     {
+         // Ambil data ruangan berdasarkan ID
+         $ruang = Rooms::find($id);
+     
+         // Ambil data lantai berdasarkan ID lantai dari ruangan
+         $floor = Floors::find($ruang->id_floor);
+     
+         // Ambil data tenant yang memiliki id_floor yang sama dan id_room yang sesuai
+         $tenant = Tenant::where('id_floor', $ruang->id_floor)
+                          ->where('id_room', $ruang->id)
+                          ->get();
+     
+         // Pastikan fasilitas dikonversi dari JSON string ke array
+         $facilitiesArray = json_decode($ruang->facilities, true);
+     
+         // Jika data valid, gabungkan dengan pemisah "·", jika tidak, gunakan string kosong
+         $formattedFacilities = $facilitiesArray ? implode(" · ", $facilitiesArray) : 'Tidak ada fasilitas';
+     
+         // Format tanggal untuk setiap tenant
+         foreach ($tenant as $t) {
+             // Formatkan date_start dan date_end dengan format yang diinginkan
+             $t->formatted_date_start = Carbon::parse($t->date_start)->locale('id')->isoFormat('dddd, D MMMM YYYY');
+             $t->formatted_date_end = Carbon::parse($t->date_end)->locale('id')->isoFormat('dddd, D MMMM YYYY');
+         }
+     
+         // Kembalikan view dengan data ruangan, lantai, fasilitas, dan tenant
+         return view('lantai.detail', compact('ruang', 'floor', 'formattedFacilities', 'tenant'));
+     }
+     
+    
+    
 
     /**
      * Show the form for editing the specified resource.
