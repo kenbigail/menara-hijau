@@ -37,7 +37,7 @@
                                 <ul class="py-2 text-lg text-gray-700" aria-labelledby="dropdownDefaultButton">
                                     @foreach($roles as $role)
                                     <li>
-                                        <a href="{{ route('ruang', ['role' => strtolower($role)]) }}"
+                                        <a href="{{ route('users.index', ['role' => strtolower($role)]) }}"
                                             class="block px-4 py-2 hover:bg-gray-100 text-center">
                                             {{ $role }}
                                         </a>
