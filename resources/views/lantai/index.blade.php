@@ -1,6 +1,6 @@
 <x-app-layout>
-    <div class="w-screen bg-white flex justify-center items-center">
-        <div class="max-w-7xl mx-auto w-full flex justify-center items-center flex-col gap-10 max-md:justify-center max-md:flex-col py-16 max-md:w-full">
+    <div class="w-screen bg-white flex justify-center items-center grow">
+        <div class="max-w-7xl mx-auto w-full flex justify-center items-center flex-col gap-10 max-md:justify-center max-md:flex-col py-16 max-md:w-full h-full">
 
             <!-- Header Pilih Lantai -->
             <div class="w-full flex justify-between items-center py-12 px-10 bg-slate-50 rounded-xl max-md:rounded-none max-md:justify-center max-md:flex-col max-md:gap-5 relative">
