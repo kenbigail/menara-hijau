@@ -21,9 +21,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/management', [FloorDashController::class, 'index'])->name('management.index');
-    Route::get('/users', [UserDashController::class, 'index'])->name('users.index');
+Route::middleware('auth', 'superAdmin')->group(function () {
+    Route::resource('users', UserDashController::class);
+});
+
+Route::middleware('auth', 'verified')->group(function () {
+    Route::resource('management', FloorDashController::class);
 });
 
 Route::middleware('auth')->group(function () {

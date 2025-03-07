@@ -10,8 +10,13 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    // ... other code in bootstrap/app.php
+
+// ... rest of the bootstrap/app.php file
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'superAdmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
