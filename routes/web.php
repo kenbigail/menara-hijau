@@ -4,6 +4,7 @@ use App\Http\Controllers\FloorDashController;
 use App\Http\Controllers\LantaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDashController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Halaman utama
@@ -17,9 +18,10 @@ Route::resource('lantai', LantaiController::class);
 Route::get('/lantai/{floorId}/ruangan', [LantaiController::class, 'getRoomsByFloor']);
 Route::get('/ruang/{roomId}', [LantaiController::class, 'show'])->name('lantai.show');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 
 Route::middleware('auth', 'superAdmin')->group(function () {
     Route::resource('users', UserDashController::class);
