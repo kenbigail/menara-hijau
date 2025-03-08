@@ -34,30 +34,38 @@
                             </button>
                         </div>
                         <!-- Modal body -->
-                        <form class="p-4 md:p-5" method="POST" action="{{ route('users.store') }}">
+                        <form class="p-4 md:p-5" method="POST" action="{{ route('users.store') }}" id="createForm">
                             @csrf
                             <div class="grid gap-4 mb-4 grid-cols-2">
+                                <!-- Nama Admin -->
                                 <div class="col-span-2">
                                     <label for="name" class="block mb-2 text-sm font-medium text-[#646464]">Nama
                                         Admin</label>
                                     <input type="text" name="name" id="name"
                                         class="border border-[#EEEEEE] text-[#646464] text-sm font-medium rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         placeholder="Ketik Nama Lengkap" required>
+                                    <span id="name-error" class="text-red-500 text-sm hidden">Nama harus diisi.</span>
                                 </div>
+                                <!-- Email -->
                                 <div class="col-span-2">
                                     <label for="email" class="block mb-2 text-sm font-medium text-[#646464]">Alamat
                                         Email</label>
                                     <input type="email" name="email" id="email"
                                         class="border border-[#EEEEEE] text-[#646464] text-sm font-medium rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         placeholder="Ketik Alamat Email Lengkap" required>
+                                    <span id="email-error" class="text-red-500 text-sm hidden">Email harus valid.</span>
                                 </div>
+                                <!-- Password -->
                                 <div class="col-span-2">
                                     <label for="password"
                                         class="block mb-2 text-sm font-medium text-[#646464]">Password</label>
                                     <input type="password" name="password" id="password"
                                         class="border border-[#EEEEEE] text-[#646464] text-sm font-medium rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                         placeholder="Password (min.8 character)" minlength="8" required>
+                                    <span id="password-error" class="text-red-500 text-sm hidden">Password minimal 8
+                                        karakter.</span>
                                 </div>
+                                <!-- Role -->
                                 <div class="col-span-2">
                                     <label for="role" class="block mb-2 text-sm font-medium text-[#646464]">Role</label>
                                     <select name="role" id="role"
@@ -67,11 +75,14 @@
                                         <option value="superAdmin">Super Administrator</option>
                                         <option value="admin">Administrator</option>
                                     </select>
+                                    <span id="role-error" class="text-red-500 text-sm hidden">Role harus dipilih.</span>
                                 </div>
                             </div>
+                            <!-- Tombol Submit -->
                             <div class="flex justify-end">
-                                <button type="submit"
-                                    class="text-white flex justify-end items-center bg-[#017B48] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                <button type="submit" id="submitButton"
+                                    class="flex justify-end items-center bg-[#EBF4F0] text-[#017B48] font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                    disabled>
                                     Simpan Perubahan
                                     <svg class="ms-1 -me-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -85,80 +96,57 @@
                     </div>
                 </div>
             </div>
-            <!-- Main modal -->
-            <div id="crud-modal-edit" tabindex="-1" aria-hidden="true"
-                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow-sm text-black">
-                        <!-- Modal header -->
-                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-[#EEEEEE]">
-                            <h3 class="text-lg font-medium text-black">
-                                Ini Edit Men
-                            </h3>
-                            <button type="button"
-                                class="text-[#646464] bg-transparent rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
-                                data-modal-toggle="crud-modal-edit">
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 14 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                </svg>
-                                <span class="sr-only">Close modal</span>
-                            </button>
-                        </div>
-                        <!-- Modal body -->
-                        <form class="p-4 md:p-5" method="POST" action="{{ route('users.store') }}">
-                            @csrf
-                            <div class="grid gap-4 mb-4 grid-cols-2">
-                                <div class="col-span-2">
-                                    <label for="name" class="block mb-2 text-sm font-medium text-[#646464]">Nama
-                                        Admin</label>
-                                    <input type="text" name="name" id="name"
-                                        class="border border-[#EEEEEE] text-[#646464] text-sm font-medium rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                        placeholder="Ketik Nama Lengkap" required>
-                                </div>
-                                <div class="col-span-2">
-                                    <label for="email" class="block mb-2 text-sm font-medium text-[#646464]">Alamat
-                                        Email</label>
-                                    <input type="email" name="email" id="email"
-                                        class="border border-[#EEEEEE] text-[#646464] text-sm font-medium rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                        placeholder="Ketik Alamat Email Lengkap" required>
-                                </div>
-                                <div class="col-span-2">
-                                    <label for="password"
-                                        class="block mb-2 text-sm font-medium text-[#646464]">Password</label>
-                                    <input type="password" name="password" id="password"
-                                        class="border border-[#EEEEEE] text-[#646464] text-sm font-medium rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                                        placeholder="Password (min.8 character)" minlength="8" required>
-                                </div>
-                                <div class="col-span-2">
-                                    <label for="role" class="block mb-2 text-sm font-medium text-[#646464]">Role</label>
-                                    <select name="role" id="role"
-                                        class="border border-[#EEEEEE] text-[#646464] text-sm font-medium rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                        required>
-                                        <option value="" selected disabled>Select Role</option>
-                                        <option value="superAdmin">Super Administrator</option>
-                                        <option value="admin">Administrator</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="flex justify-end">
-                                <button type="submit"
-                                    class="text-white flex justify-end items-center bg-[#017B48] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                    Simpan Perubahan
-                                    <svg class="ms-1 -me-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.getElementById('createForm');
+                    const submitButton = document.getElementById('submitButton');
+                    const inputs = form.querySelectorAll('input, select');
+
+                    // Fungsi untuk validasi form
+                    function validateForm() {
+                        let isValid = true;
+                        inputs.forEach(input => {
+                            if (!input.checkValidity()) {
+                                isValid = false;
+                            }
+                        });
+
+                        // Aktifkan atau nonaktifkan tombol submit
+                        if (isValid) {
+                            submitButton.removeAttribute('disabled');
+                            submitButton.classList.remove('bg-[#EBF4F0]');
+                            submitButton.classList.add('bg-[#017B48]');
+                        } else {
+                            submitButton.setAttribute('disabled', true);
+                            submitButton.classList.remove('bg-[#017B48]');
+                            submitButton.classList.add('bg-[#EBF4F0]');
+                        }
+                    }
+
+                    // Tambahkan event listener untuk setiap input
+                    inputs.forEach(input => {
+                        input.addEventListener('input', function () {
+                            validateForm();
+                            const errorSpan = document.getElementById(`${input.id}-error`);
+                            if (!input.checkValidity()) {
+                                errorSpan.classList.remove('hidden');
+                            } else {
+                                errorSpan.classList.add('hidden');
+                            }
+                        });
+                    });
+
+                    // Validasi saat form di-submit
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            validateForm();
+                        }
+                    });
+                });
+
+            </script>
         </div>
         <div
             class="max-w-7xl mx-auto w-full flex justify-between mt-5 items-center max-md:justify-center max-md:flex-col max-xl:px-5">
