@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="w-screen bg-slate-50 flex flex-col justify-center items-center">
-        <div class="max-w-7xl mx-auto w-full flex justify-between items-center mt-16">
+        <div class="max-w-7xl mx-auto w-full flex justify-between items-center mt-16 max-xl:px-5">
             <button
                 class="flex items-center gap-2 px-5 py-4 bg-[#EBF4F0] text-[#017B48] font-medium text-lg rounded-lg whitespace-nowrap">
                 <span>Tambah Ruangan</span>
