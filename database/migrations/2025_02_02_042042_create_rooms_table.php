@@ -18,8 +18,12 @@ return new class extends Migration
             $table->json('images')->nullable();
             $table->text('facilities');
             $table->string('contact');
+            $table->integer('size');
             $table->enum('categories', ['ballroom', 'office room', 'working space']);
+            $table->enum('corner', ['south', 'north', 'east', 'west']);
             $table->enum('availability', ['available', 'unavailable']);
+            $table->string('grid_col');
+            $table->string('grid_row');
             $table->timestamps();
             $table->foreign('id_floor')->references('id')->on('floors')->onDelete('cascade');
         });
