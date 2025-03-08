@@ -5,9 +5,10 @@
             <div class="w-full flex justify-between items-center py-10 max-md:justify-center max-md:flex-col max-md:gap-5 border-b max-lg:px-5">
                 <h1 class="text-4xl font-bold max-md:text-center max-md:text-2xl">{{$floor->num_floor}} - {{$ruang->name_room}}</h1>
 
-                <a class="bg-white text-black border font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center hover:bg-slate-50" href="{{ route('lantai.index') }}">
-                    Kembali
+                <a class="bg-white text-black border font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center hover:bg-slate-50 cursor-pointer" onclick="window.history.back();">
+                 Kembali
                 </a>
+             
 
             </div>
             <div class="w-full h-[550px] grid grid-cols-3 grid-rows-2 gap-5 max-lg:grid-cols-2 max-lg:px-5">
