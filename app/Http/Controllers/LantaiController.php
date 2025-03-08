@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Floors;
-use App\Models\Rooms;
+use App\Models\Floor;
+use App\Models\Room;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -15,8 +15,8 @@ class LantaiController extends Controller
      */
     public function index()
     {
-        $lantai = Floors::all();
-        $ruang = Rooms::all();
+        $lantai = Floor::all();
+        $ruang = Room::all();
 
         return view('lantai.index', compact('lantai', 'ruang'));
     }
@@ -24,7 +24,7 @@ class LantaiController extends Controller
     public function getRoomsByFloor($floorId)
     {
         // Ambil data ruangan berdasarkan id lantai
-        $rooms = Rooms::where('id_floor', $floorId)
+        $rooms = Room::where('id_floor', $floorId)
             ->select('id', 'name_room as nama_ruang', 'availability') // Pilih kolom yang diperlukan, termasuk availability
             ->get();
         
@@ -58,10 +58,10 @@ class LantaiController extends Controller
      public function show(string $id)
      {
          // Ambil data ruangan berdasarkan ID
-         $ruang = Rooms::find($id);
+         $ruang = Room::find($id);
      
          // Ambil data lantai berdasarkan ID lantai dari ruangan
-         $floor = Floors::find($ruang->id_floor);
+         $floor = Floor::find($ruang->id_floor);
      
          // Ambil data tenant yang memiliki id_floor yang sama dan id_room yang sesuai
          $tenant = Tenant::where('id_floor', $ruang->id_floor)

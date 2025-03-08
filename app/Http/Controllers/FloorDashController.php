@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Floors;
-use App\Models\Rooms;
+use App\Models\Floor;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class FloorDashController extends Controller
 {
     public function index()
     {
-        $rooms = Rooms::with('floor')->get();
-        $floors = Floors::all();
+        $rooms = Room::with('floor')->get();
+        $floors = Floor::all();
         $defaultFloor = $floors->first(); // Get the first floor as default
 
         return view('admin.rooms.index', compact('rooms', 'floors', 'defaultFloor'));
