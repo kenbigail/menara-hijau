@@ -11,13 +11,13 @@
                     <button id="floorDropdownBtn"
                         class="bg-white text-black border focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center"
                         type="button">
-                        Pilih Lantai
+                        <span id="selectedFloor">Pilih Lantai</span>
                         <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 1 4 4 4-4" />
                         </svg>
-                    </button>
+                    </button>                
 
                     <!-- Dropdown Menu -->
                     <div id="floorDropdownMenu" class="absolute right-0 mt-2 bg-white divide-y divide-gray-200 rounded-lg shadow-md w-44 z-50 hidden">
@@ -36,23 +36,26 @@
             </div>
 
             <!-- Container untuk Menampilkan Nama Lantai dan Ruangan -->
-            <div class="w-full flex flex-col justify-center items-center py-20 px-10 border rounded-xl text-slate-500 max-md:rounded-none text-center">
-                <h1 id="selectedFloor" class="text-xl font-semibold mb-4">Pilih Lantai</h1>
-
-                <!-- Daftar Ruangan -->
-                <div id="roomsContainer" class="grid grid-cols-2 gap-4 w-full max-w-3xl mx-auto mt-6">
-                    <!-- Ruangan akan dimuat disini setelah memilih lantai -->
-                </div>
-
-                <p id="noRoomsMessage" class="text-gray-400 italic mt-5 hidden">Tidak ada ruangan untuk lantai ini.</p>
+            <div id="roomsContainer" class="grid grid-cols-10 grid-rows-10 w-full h-[700px] bg-white border relative">
+                 <p id="noRoomsMessage" class="text-gray-400 italic mt-5 hidden">Tidak ada ruangan untuk lantai ini.</p>
             </div>
 
         </div>
     </div>
 
-    <!-- Script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+$(document).ready(function() {
+    var defaultFloor = $('.select-floor[data-id="1"]');
+    if (defaultFloor.length) {
+        var floorId = defaultFloor.data('id');
+        var floorName = defaultFloor.data('floor');
+
+        $('#selectedFloor').text(floorName); // Menampilkan lantai yang dipilih
+        fetchRooms(floorId);
+    }
+});
+
         // Menampilkan dropdown saat tombol diklik
         $('#floorDropdownBtn').click(function() {
             $('#floorDropdownMenu').toggleClass('hidden');
@@ -62,12 +65,12 @@
         $('.select-floor').click(function() {
             var floorId = $(this).data('id');
             var floorName = $(this).data('floor');
+    
             $('#selectedFloor').text(floorName);
             fetchRooms(floorId);
             $('#floorDropdownMenu').addClass('hidden');
         });
     
-        // Fungsi untuk mengambil dan menampilkan ruangan
         function fetchRooms(floorId) {
             $.ajax({
                 url: '/lantai/' + floorId + '/ruangan',
@@ -78,28 +81,24 @@
                         $('#roomsContainer').html('');
     
                         data.forEach(function(room) {
-                            let availability = room.availability ? room.availability.trim().toLowerCase() : "";
-                            let statusText, statusColor;
+                            // let availability = room.availability ? room.availability.trim().toLowerCase() : "";
+                            // let bgColor;
     
-                            // Validasi nilai availability
-                            if (availability === 'available') {
-                                statusText = 'Tersedia';
-                                statusColor = 'text-green-500';
-                            } else if (availability === 'unavailable') {
-                                statusText = 'Tidak Tersedia';
-                                statusColor = 'text-red-500';
-                            } else {
-                                statusText = 'Status Tidak Diketahui';
-                                statusColor = 'text-gray-500';
-                            }
+                            // if (availability === 'available') {
+                            //     bgColor = 'bg-green-500 hover:bg-green-600';
+                            // } else if (availability === 'unavailable') {
+                            //     bgColor = 'bg-red-500 hover:bg-red-600';
+                            // } else {
+                            //     bgColor = 'bg-gray-500 hover:bg-gray-600';
+                            // }
     
-                            var roomLink = `
-                                <a href="/ruang/${room.id}" class="flex justify-between items-center px-6 py-4 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 transition-all">
-                                    <span class="text-lg font-semibold">${room.nama_ruang}</span>
-                                    <span class="text-sm font-medium ${statusColor}">${statusText}</span>
+                            var roomButton = `
+                                <a href="/ruang/${room.id}" class="flex items-center justify-center text-black text-xl font-bold transition-all p-6 bg-gray-50 border hover:bg-gray-100"
+                                    style="grid-column: ${room.grid_col}; grid-row: ${room.grid_row};">
+                                    ${room.nama_ruang}
                                 </a>
                             `;
-                            $('#roomsContainer').append(roomLink);
+                            $('#roomsContainer').append(roomButton);
                         });
                     } else {
                         $('#roomsContainer').html('');
@@ -112,7 +111,6 @@
             });
         }
     </script>
-    
     
 
 </x-app-layout>
