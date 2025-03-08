@@ -25,7 +25,7 @@ class LantaiController extends Controller
     {
         // Ambil data ruangan berdasarkan id lantai
         $rooms = Room::where('id_floor', $floorId)
-            ->select('id', 'name_room as nama_ruang', 'availability') // Pilih kolom yang diperlukan, termasuk availability
+            ->select('id', 'name_room as nama_ruang', 'availability', 'grid_col', 'grid_row') // Pilih kolom yang diperlukan, termasuk availability
             ->get();
         
         // Kembalikan data ruangan dalam format JSON
