@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Floors;
-use App\Models\Rooms;
+use App\Models\Floor;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $floorsCount = Floors::count();
-        $roomsCount = Rooms::count();
-        $availableRooms = Rooms::where('availability', 'available')->count();
-        $bookedRooms = Rooms::where('availability', 'booked')->count();
+        $floorsCount = Floor::count();
+        $roomsCount = Room::count();
+        $availableRooms = Room::where('availability', 'available')->count();
+        $bookedRooms = Room::where('availability', 'booked')->count();
 
         return view('dashboard', compact('floorsCount', 'roomsCount', 'availableRooms', 'bookedRooms'));
     }
