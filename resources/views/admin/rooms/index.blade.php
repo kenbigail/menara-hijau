@@ -46,7 +46,7 @@
                                 <ul class="py-2 text-lg text-gray-700" aria-labelledby="dropdownDefaultButton">
                                     @foreach($floors as $floor)
                                     <li>
-                                        <a href="{{ route('management.index', ['id' => $floor->id]) }}"
+                                        <a href="{{ route('rooms.index', ['id' => $floor->id]) }}"
                                             class="block px-4 py-2 hover:bg-gray-100 text-center">
                                             {{ $floor->num_floor }}
                                         </a>

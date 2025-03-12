@@ -6,6 +6,7 @@ use App\Http\Controllers\LantaiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDashController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TenantDashController;
 use Illuminate\Support\Facades\Route;
 
 // Halaman utama
@@ -32,7 +33,8 @@ Route::middleware('auth', 'superAdmin')->group(function () {
 });
 
 Route::middleware('auth', 'verified')->group(function () {
-    Route::resource('management', FloorDashController::class);
+    Route::resource('rooms', FloorDashController::class);
+    Route::resource('tenants', TenantDashController::class);
 });
 
 Route::middleware('auth')->group(function () {

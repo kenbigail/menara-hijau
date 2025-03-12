@@ -198,7 +198,7 @@
                                             <th class="p-4 border">Nama</th>
                                             <th class="p-4 border">Alamat Email</th>
                                             <th class="p-4 border">Role</th>
-                                            <th class="p-4 border">Actions</th>
+                                            <th class="p-4 border text-center">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-gray-700 text-lg">
@@ -214,24 +214,31 @@
                                                     {{ ucfirst($item->role) }}
                                                 </span>
                                             </td>
-                                            <td class="p-4 border text-center space-x-2">
-                                                <!-- Tombol Edit -->
-                                                <a href="{{ route('users.edit', $item->id) }}"
-                                                    class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-[#EBF4F0] text-[#017B48] hover:bg-[#017B48] hover:text-white transition">
-                                                    Edit
-                                                </a>
-
-                                                <!-- Tombol Delete -->
-                                                <form action="{{ route('users.destroy', $item->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure?');" class="inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
-                                                        Delete
+                                            <td class="p-4 border text-center relative">
+                                                <div x-data="{ open: false }" class="relative">
+                                                    <!-- Button -->
+                                                    <button @click="open = !open" class="px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition">
+                                                        Actions
                                                     </button>
-                                                </form>
 
+                                                    <!-- Dropdown -->
+                                                    <div x-show="open" @click.away="open = false"
+                                                        class="absolute left-1/2 transform -translate-x-1/2 mt-2 w-36 bg-white border rounded-md shadow-lg z-50 text-center">
+                                                        <a href="{{ route('users.edit', $item->id) }}"
+                                                            class="block px-4 py-2 hover:bg-gray-100">
+                                                            Edit
+                                                        </a>
+                                                        <form action="{{ route('users.destroy', $item->id) }}" method="POST"
+                                                            onsubmit="return confirm('Are you sure?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit"
+                                                                class="block w-full px-4 py-2 text-red-500 hover:bg-red-100">
+                                                                Delete
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                         @endforeach
