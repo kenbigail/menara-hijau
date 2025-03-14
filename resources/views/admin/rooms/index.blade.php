@@ -1,22 +1,16 @@
 <x-app-layout>
     <div class="w-screen bg-slate-50 flex flex-col justify-center items-center">
         <div class="max-w-7xl mx-auto w-full flex justify-between items-center mt-16 max-xl:px-5">
-            <button
-                class="flex items-center gap-2 px-5 py-4 bg-[#EBF4F0] text-[#017B48] font-medium text-lg rounded-lg whitespace-nowrap">
-                <span>Tambah Ruangan</span>
+            <button onclick="window.location.href='{{ route('tenants.index') }}'"
+                class="flex items-center gap-2 px-5 py-4 bg-[#EBF4F0] text-[#017B48] hover:bg-[#017B48] hover:text-white transition-colors font-medium text-lg rounded-lg whitespace-nowrap"
+                type="button">
+                <span>Tambah Tenants</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
             </button>
-            <button
-                class="flex items-center gap-2 px-5 py-4 bg-[#EBF4F0] text-[#017B48] font-medium text-lg rounded-lg whitespace-nowrap">
-                <span>Tambah Lantai</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                </svg>
-            </button>
+
         </div>
         <div
             class="max-w-7xl mx-auto w-full flex justify-between mt-5 items-center max-md:justify-center max-md:flex-col max-xl:px-5">
