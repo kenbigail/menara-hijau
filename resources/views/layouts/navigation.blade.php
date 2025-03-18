@@ -31,10 +31,10 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('management.index')" :active="request()->routeIs('management.index')">
+                    <x-nav-link :href="route('rooms.index')" :active="request()->routeIs('rooms.index')">
                         {{ __('Manage Rooms') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('management.index')" :active="request()->routeIs('management.index')">
+                    <x-nav-link :href="route('tenants.index')" :active="request()->routeIs('tenants.index')">
                         {{ __('Manage Tenants') }}
                     </x-nav-link>
                     @if (Auth::user()->role === 'superAdmin')
@@ -105,12 +105,15 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('management.index')" :active="request()->routeIs('management.index')">
-                {{ __('Rooms Management') }}
+            <x-responsive-nav-link :href="route('rooms.index')" :active="request()->routeIs('rooms.index')">
+                {{ __('Manage Rooms') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('tenants.index')" :active="request()->routeIs('tenants.index')">
+                {{ __('Manage Tenants') }}
             </x-responsive-nav-link>
             @if (Auth::user()->role === 'superAdmin')
                 <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                    {{ __('Users Management') }}
+                    {{ __('Manage Users') }}
                 </x-responsive-nav-link>
             @endif
         </div>
