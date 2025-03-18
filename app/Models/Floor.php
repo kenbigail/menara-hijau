@@ -17,4 +17,9 @@ class Floor extends Model
     {
         return $this->hasMany(Room::class, 'id_floor');
     }
+
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class, 'id_floor');
+    }
 }
