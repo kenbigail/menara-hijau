@@ -35,8 +35,9 @@
                 </div>
             </div>
 
+
             <!-- Container untuk Menampilkan Nama Lantai dan Ruangan -->
-            <div id="roomsContainer" class="grid grid-cols-10 grid-rows-10 w-full h-[700px] max-md:h-[300px] bg-white border relative max-md:w-[95%]">
+            <div id="roomsContainer" class="grid grid-cols-12 grid-rows-12 w-full h-[800px] max-md:h-[300px] bg-white border relative max-md:w-[95%]">
                 <p id="noRoomsMessage" class="text-gray-400 italic mt-5 hidden">Tidak ada ruangan untuk lantai ini.</p>
            </div>
 
