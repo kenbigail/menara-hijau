@@ -7,7 +7,7 @@
                 <div class="w-[80%] h-full flex flex-col justify-start">
                     <div class="flex flex-row w-full justify-between items-center">
                         <p class="font-medium text-xl sm:text-lg lg:text-base">
-                            Total Lantai
+                            Total Floors
                         </p>
                         <p class="font-medium text-sm sm:text-xs lg:text-[10px] text-[#AAAAAA]">
                             Menara Hijau
@@ -29,7 +29,7 @@
                 <div class="w-[80%] h-full flex flex-col justify-start">
                     <div class="flex flex-row w-full justify-between items-center">
                         <p class="font-medium text-xl sm:text-lg lg:text-base">
-                            Total Ruangan
+                            Total Rooms
                         </p>
                         <p class="font-medium text-sm sm:text-xs lg:text-[10px] text-[#AAAAAA]">
                             Menara Hijau
@@ -88,7 +88,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- Table Ruangan Available -->
         <div class="max-w-7xl mx-auto w-full flex flex-col justify-between items-center py-5 mb-5">
@@ -97,16 +96,55 @@
                 <div class="w-[90%] h-full flex flex-col justify-start">
                     <div class="flex flex-row w-full justify-between items-center">
                         <p class="font-medium text-2xl">
-                            Available Ruangan
+                            Available Rooms
                         </p>
                         <p class="font-medium text-base text-[#AAAAAA]">
                             Menara Hijau
                         </p>
                     </div>
                     <div class="mt-10 h-[1.5px] w-full bg-[#EEEEEE]"></div>
+
+                    <!-- Available Rooms Table -->
+                    <div class="w-full grid grid-cols-1 py-5 max-lg:px-5 max-lg:border-0 gap-5">
+                        <div class="w-full overflow-x-auto">
+                            @if ($availableRoomsData->isEmpty())
+                            <!-- Empty State -->
+                            <div class="text-center text-gray-500 py-5">
+                                No available rooms found.
+                            </div>
+                            @else
+                            <table class="w-full border-collapse border border-gray-200">
+                                <thead>
+                                    <tr class="bg-[#017B48] text-white text-left text-xl">
+                                        <th class="p-4 border">Lantai</th>
+                                        <th class="p-4 border">Rooms</th>
+                                        <th class="p-4 border">Availability</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-700 text-lg">
+                                    @foreach ($availableRoomsData as $room)
+                                    <tr class="border-b">
+                                        <!-- Lantai -->
+                                        <td class="p-4 border">{{ $room->floor->num_floor }}</td>
+                                        <!-- Rooms -->
+                                        <td class="p-4 border">{{ $room->name_room }}</td>
+                                        <!-- Availability -->
+                                        <td class="p-4 border">
+                                            <span class="px-3 py-1 border border-green-500 text-green-500 rounded-lg">
+                                                Available
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
         <!-- Table Ruangan Reserved -->
         <div class="max-w-7xl mx-auto w-full flex flex-col justify-between items-center py-5 mb-5">
             <div
@@ -114,13 +152,74 @@
                 <div class="w-[90%] h-full flex flex-col justify-start">
                     <div class="flex flex-row w-full justify-between items-center">
                         <p class="font-medium text-2xl">
-                            Ruangan Reserved
+                            Reserved Rooms
                         </p>
                         <p class="font-medium text-base text-[#AAAAAA]">
                             Menara Hijau
                         </p>
                     </div>
                     <div class="mt-10 h-[1.5px] w-full bg-[#EEEEEE]"></div>
+                    <div class="w-full grid grid-cols-1 py-5 max-lg:px-5 max-lg:border-0 gap-5">
+                        <div class="w-full overflow-x-auto">
+                            @if ($tenants->isEmpty())
+                            <!-- Empty State -->
+                            <div class="text-center text-gray-500 py-5">
+                                No reserved rooms found.
+                            </div>
+                            @else
+                            <table class="w-full border-collapse border border-gray-200">
+                                <thead>
+                                    <tr class="bg-[#017B48] text-white text-left text-xl">
+                                        <th class="p-4 border">Lantai</th>
+                                        <th class="p-4 border">Ruangan</th>
+                                        <th class="p-4 border">Tenant</th>
+                                        <th class="p-4 border">Tanggal Mulai</th>
+                                        <th class="p-4 border">Tanggal Selesai</th>
+                                        <th class="p-4 border">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-gray-700 text-lg">
+                                    @foreach ($tenants as $tenant)
+                                    <tr class="border-b">
+                                        <!-- Lantai -->
+                                        <td class="p-4 border">{{ $tenant->floor->num_floor }}</td>
+                                        <!-- Ruangan -->
+                                        <td class="p-4 border">{{ $tenant->room->name_room }}</td>
+                                        <!-- Tenant -->
+                                        <td class="p-4 border">{{ $tenant->name_tenant }}</td>
+                                        <!-- Tanggal Mulai -->
+                                        <td class="p-4 border">{{ $tenant->date_start }}</td>
+                                        <!-- Tanggal Selesai -->
+                                        <td class="p-4 border">{{ $tenant->date_end }}</td>
+                                        <!-- Status -->
+                                        <td class="p-4 border">
+                                            @php
+                                            $today = now()->toDateString();
+                                            $status = '';
+                                            if ($today < $tenant->date_start) {
+                                                $status = 'waiting';
+                                                } elseif ($today >= $tenant->date_start && $today <= $tenant->date_end)
+                                                    {
+                                                    $status = 'ongoing';
+                                                    } else {
+                                                    $status = 'finished';
+                                                    }
+                                                    @endphp
+                                                    <span class="px-3 py-1 border 
+                                        {{ $status == 'ongoing' ? 'border-green-500 text-green-500' : '' }}
+                                        {{ $status == 'waiting' ? 'border-yellow-400 text-yellow-500' : '' }}
+                                        {{ $status == 'finished' ? 'border-red-500 text-red-500' : '' }}
+                                        rounded-lg">
+                                                        {{ ucfirst($status) }}
+                                                    </span>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -16,5 +16,10 @@ class Room extends Model
     {
         return $this->belongsTo(Floor::class, 'id_floor');
     }
+
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class, 'id_room');
+    }
 }
 
