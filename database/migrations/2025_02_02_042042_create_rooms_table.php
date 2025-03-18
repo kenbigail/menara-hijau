@@ -18,7 +18,7 @@ return new class extends Migration
             $table->json('images')->nullable();
             $table->text('facilities');
             $table->string('contact');
-            $table->integer('size');
+            $table->string('size');
             $table->enum('categories', ['ballroom', 'office room', 'working space']);
             $table->enum('corner', ['south', 'north', 'east', 'west']);
             $table->enum('availability', ['available', 'unavailable']);

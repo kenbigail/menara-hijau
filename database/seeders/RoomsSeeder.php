@@ -3,64 +3,43 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Room;
+use App\Models\Floor;
+use Illuminate\Support\Facades\File;
 
 class RoomsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-
-    public function run(): void
+    public function run()
     {
-        DB::table('rooms')->insert([
-            [
-                'id_floor' => 1, // Manually choose the floor ID
-                'name_room' => 'Kiani 1',
-                'images' => json_encode([]),
-                'facilities' => json_encode(['WiFi', 'Projector', 'Air Conditioning']),
-                'contact' => 'https://wa.me/6281234567890',
-                'categories' => 'office room',
-                'size' => 65,
-                'corner' => 'south',
-                'grid_col' => '1',
-                'grid_row' => '1',
-                'availability' => 'available',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'id_floor' => 2, // Manually choose the floor ID
-                'name_room' => 'Kiani 2',
-                'images' => json_encode([]),
-                'facilities' => json_encode(['WiFi', 'Projector', 'Air Conditioning']),
-                'contact' => 'https://wa.me/6281234567890',
-                'categories' => 'office room',
-                'size' => 60,
-                'corner' => 'west',
-                'grid_col' => '1',
-                'grid_row' => '1',
-                'availability' => 'unavailable',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'id_floor' => 3, // Manually choose the floor ID
-                'name_room' => 'Kiani 3',
-                'images' => json_encode([]),
-                'facilities' => json_encode(['WiFi', 'Projector', 'Air Conditioning']),
-                'contact' => 'https://wa.me/6281234567890',
-                'categories' => 'office room',
-                'size' => 63,
-                'corner' => 'north',
-                'grid_col' => '1',
-                'grid_row' => '1',
-                'availability' => 'available',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        // Baca file JSON
+        $json = File::get(database_path('json/rooms.json'));
+        $data = json_decode($json, true);
 
-        $this->command->info('Rooms have been seeded with manually assigned floor IDs!');
+        // Periksa apakah data memiliki key yang benar
+        if (isset($data[2]['data']) && is_array($data[2]['data'])) {
+            foreach ($data[2]['data'] as $room) {
+
+                // Pastikan id_floor ada di tabel floors agar tidak error foreign key
+                if (!Floor::where('id', $room['id_floor'])->exists()) {
+                    continue; // Lewati jika id_floor tidak valid
+                }
+
+                Room::create([
+                    'id_floor'     => $room['id_floor'],
+                    'name_room'    => $room['name_room'],
+                    'images'       => is_array($room['images']) ? $room['images'] : json_decode($room['images'], true) ?? [],
+                    'facilities'   => is_array($room['facilities']) ? $room['facilities'] : json_decode($room['facilities'], true) ?? [],
+                    'contact'      => $room['contact'],
+                    'size'         => $room['size'],
+                    'categories'   => $room['categories'],
+                    'corner'       => $room['corner'],
+                    'availability' => $room['availability'],
+                    'grid_col'     => $room['grid_col'],
+                    'grid_row'     => $room['grid_row'],
+                    'created_at'   => $room['created_at'],
+                    'updated_at'   => $room['updated_at'],
+                ]);
+            }
+        }
     }
 }

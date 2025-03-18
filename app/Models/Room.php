@@ -12,6 +12,17 @@ class Room extends Model
     protected $table = 'rooms'; // Jika nama tabel berbeda dari nama model
     protected $guarded = [];
 
+    protected $fillable = [
+        'id_floor', 'name_room', 'images', 'facilities', 'contact',
+        'size', 'categories', 'corner', 'availability',
+        'grid_col', 'grid_row', 'created_at', 'updated_at'
+    ];
+
+    protected $casts = [
+        'images' => 'array',
+        'facilities' => 'array',
+    ];
+
     public function floor()
     {
         return $this->belongsTo(Floor::class, 'id_floor');

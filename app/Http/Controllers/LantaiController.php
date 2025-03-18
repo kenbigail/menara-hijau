@@ -69,7 +69,7 @@ class LantaiController extends Controller
                           ->get();
      
          // Pastikan fasilitas dikonversi dari JSON string ke array
-         $facilitiesArray = json_decode($ruang->facilities, true);
+         $facilitiesArray = is_string($ruang->facilities) ? json_decode($ruang->facilities, true) : $ruang->facilities;
      
          // Jika data valid, gabungkan dengan pemisah "·", jika tidak, gunakan string kosong
          $formattedFacilities = $facilitiesArray ? implode(" · ", $facilitiesArray) : 'Tidak ada fasilitas';
