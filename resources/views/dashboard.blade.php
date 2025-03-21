@@ -104,6 +104,21 @@
                     </div>
                     <div class="mt-10 h-[1.5px] w-full bg-[#EEEEEE]"></div>
 
+                    <!-- "Lihat Semua" Button (Conditional) -->
+                    @if (!$availableRoomsData->isEmpty())
+                    <div class="w-full flex justify-end mt-5">
+                        <a href="{{ route('rooms.index') }}"
+                            class="flex items-center px-4 py-2 bg-[#017B48] text-white rounded-lg hover:bg-[#016138] transition">
+                            <span>Lihat Semua</span>
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    @endif
+
                     <!-- Available Rooms Table -->
                     <div class="w-full grid grid-cols-1 py-5 max-lg:px-5 max-lg:border-0 gap-5">
                         <div class="w-full overflow-x-auto">
@@ -159,6 +174,23 @@
                         </p>
                     </div>
                     <div class="mt-10 h-[1.5px] w-full bg-[#EEEEEE]"></div>
+
+                    <!-- "Lihat Semua" Button (Conditional) -->
+                    @if (!$tenants->isEmpty())
+                    <div class="w-full flex justify-end mt-5">
+                        <a href="{{ route('tenants.index') }}"
+                            class="flex items-center px-4 py-2 bg-[#017B48] text-white rounded-lg hover:bg-[#016138] transition">
+                            <span>Lihat Semua</span>
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    @endif
+
+                    <!-- Reserved Rooms Table -->
                     <div class="w-full grid grid-cols-1 py-5 max-lg:px-5 max-lg:border-0 gap-5">
                         <div class="w-full overflow-x-auto">
                             @if ($tenants->isEmpty())
