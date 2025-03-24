@@ -8,26 +8,66 @@ use Illuminate\Http\Request;
 
 class FloorDashController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $rooms = Room::with('floor')->get();
         $floors = Floor::all();
-        $defaultFloor = $floors->first(); // Get the first floor as default
+        $selectedFloorId = $request->input('floor_id', $floors->first()->id);
+        $rooms = Room::where('id_floor', $selectedFloorId)->get();
+        $defaultFloor = Floor::find($selectedFloorId);
 
         return view('admin.rooms.index', compact('rooms', 'floors', 'defaultFloor'));
     }
 
-    public function store(Request $request)
+    public function show($id)
     {
+    // Fetch the room by ID
+    $room = Room::findOrFail($id);
 
+    // Fetch the floor for the room
+    $floor = Floor::find($room->id_floor);
+
+    return view('admin.rooms.detail', compact('room', 'floor'));
+    }
+
+    public function edit($id)
+    {
+        $room = Room::findOrFail($id);
+        $floors = Floor::all();
+
+        return view('admin.rooms.edit', compact('room', 'floors'));
     }
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name_room' => 'required|string|max:255',
+            'id_floor' => 'required|exists:floors,id',
+            'categories' => 'required|in:ballroom,office room,working space',
+            'availability' => 'required|in:available,unavailable',
+            'facilities' => 'nullable|string',
+            'contact' => 'nullable|string',
+            'size' => 'nullable|string',
+            'corner' => 'nullable|in:south,north,east,west',
+            'grid_col' => 'nullable|string',
+            'grid_row' => 'nullable|string',
+        ]);
 
-    }
+        $room = Room::findOrFail($id);
+        $facilitiesArray = $request->facilities ? explode(', ', $request->facilities) : [];
 
-    public function destroy($id)
-    {
+        $room->update([
+            'name_room' => $request->name_room,
+            'id_floor' => $request->id_floor,
+            'categories' => $request->categories,
+            'availability' => $request->availability,
+            'facilities' => $facilitiesArray,
+            'contact' => $request->contact,
+            'size' => $request->size,
+            'corner' => $request->corner,
+            'grid_col' => $request->grid_col,
+            'grid_row' => $request->grid_row,
+        ]);
+
+        return redirect()->route('rooms.index')->with('success', 'Room updated successfully!');
     }
 }

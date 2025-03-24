@@ -61,7 +61,7 @@
                     <div class="flex flex-row w-full justify-start items-center pt-2">
                         <p class="font-semibold text-6xl sm:text-5xl lg:text-6xl">
                             {{ $availableRooms }} <span
-                                class="font-medium text-sm sm:text-xs lg:text-[10px] text-[#AAAAAA]">/ Unit</span>
+                                class="font-medium text-sm sm:text-xs lg:text-[10px] text-[#AAAAAA]">/ Ruangan</span>
                         </p>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                     <div class="flex flex-row w-full justify-start items-center pt-2">
                         <p class="font-semibold text-6xl sm:text-5xl lg:text-6xl">
                             {{ $bookedRooms }} <span
-                                class="font-medium text-sm sm:text-xs lg:text-[10px] text-[#AAAAAA]">/ Item</span>
+                                class="font-medium text-sm sm:text-xs lg:text-[10px] text-[#AAAAAA]">/ Ruangan</span>
                         </p>
                     </div>
                 </div>
