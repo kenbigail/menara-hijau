@@ -2,19 +2,19 @@
     <div class="w-screen bg-slate-50 flex flex-col justify-center items-center">
         <!-- Alert Section -->
         @if(session('success'))
-            <div class="w-full max-w-7xl mx-auto mt-5">
-                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
-                    {{ session('success') }}
-                </div>
+        <div class="w-full max-w-7xl mx-auto mt-5">
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg">
+                {{ session('success') }}
             </div>
+        </div>
         @endif
 
         @if(session('error'))
-            <div class="w-full max-w-7xl mx-auto mt-5">
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
-                    {{ session('error') }}
-                </div>
+        <div class="w-full max-w-7xl mx-auto mt-5">
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
+                {{ session('error') }}
             </div>
+        </div>
         @endif
 
         <!-- Modal and Dropdown Section -->
@@ -34,7 +34,7 @@
             <div id="crud-modal-create" tabindex="-1" aria-hidden="true"
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <!-- Modal Content -->
-                <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow-lg">
                     <!-- Modal Header -->
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-[#EEEEEE]">
                         <h3 class="text-lg font-medium text-black">
@@ -64,6 +64,7 @@
                                     placeholder="Ketik Nama Lengkap" required>
                                 <span id="name-error" class="text-red-500 text-sm hidden">Nama harus diisi.</span>
                             </div>
+
                             <!-- Email -->
                             <div class="col-span-2">
                                 <label for="email" class="block mb-2 text-sm font-medium text-[#646464]">Alamat
@@ -73,6 +74,7 @@
                                     placeholder="Ketik Alamat Email Lengkap" required>
                                 <span id="email-error" class="text-red-500 text-sm hidden">Email harus valid.</span>
                             </div>
+
                             <!-- Password -->
                             <div class="col-span-2">
                                 <label for="password"
@@ -83,6 +85,7 @@
                                 <span id="password-error" class="text-red-500 text-sm hidden">Password minimal 8
                                     karakter.</span>
                             </div>
+
                             <!-- Role -->
                             <div class="col-span-2">
                                 <label for="role" class="block mb-2 text-sm font-medium text-[#646464]">Role</label>
@@ -96,10 +99,11 @@
                                 <span id="role-error" class="text-red-500 text-sm hidden">Role harus dipilih.</span>
                             </div>
                         </div>
+
                         <!-- Submit Button -->
                         <div class="flex justify-end">
                             <button type="submit" id="submitButton"
-                                class="flex justify-end items-center bg-[#EBF4F0] text-[#017B48] font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-[#017B48] hover:text-white transition"
+                                class="flex justify-end items-center bg-[#EBF4F0] text-[#017B48] font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-[#017B48] hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
                                 disabled>
                                 Simpan Perubahan
                                 <svg class="ms-1 -me-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -117,7 +121,8 @@
 
         <!-- Table Section -->
         <div class="max-w-7xl mx-auto w-full flex flex-col justify-between items-center py-2 mt-5">
-            <div class="w-full h-auto bg-white rounded-lg border-[#eeeeee] border-2 flex justify-center items-center py-10">
+            <div
+                class="w-full h-auto bg-white rounded-lg border-[#eeeeee] border-2 flex justify-center items-center py-10">
                 <div class="w-[90%] h-full flex flex-col justify-start">
                     <div class="flex flex-row w-full justify-between items-center">
                         <p class="font-medium text-2xl">List Administrator</p>
@@ -221,4 +226,126 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript untuk Validasi Form -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('createForm');
+            const submitButton = document.getElementById('submitButton');
+
+            // Track field interactions
+            const fieldInteractions = {
+                name: false,
+                email: false,
+                password: false,
+                role: false
+            };
+
+            // Initialize validation
+            function validateForm() {
+                let isValid = true;
+
+                // Validate name
+                const name = document.getElementById('name').value.trim();
+                const nameError = document.getElementById('name-error');
+                if (fieldInteractions.name || name) {
+                    if (!name) {
+                        nameError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        nameError.classList.add('hidden');
+                    }
+                }
+
+                // Validate email
+                const email = document.getElementById('email').value.trim();
+                const emailError = document.getElementById('email-error');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (fieldInteractions.email || email) {
+                    if (!emailRegex.test(email)) {
+                        emailError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        emailError.classList.add('hidden');
+                    }
+                }
+
+                // Validate password
+                const password = document.getElementById('password').value;
+                const passwordError = document.getElementById('password-error');
+                if (fieldInteractions.password || password) {
+                    if (password.length < 8) {
+                        passwordError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        passwordError.classList.add('hidden');
+                    }
+                }
+
+                // Validate role
+                const role = document.getElementById('role').value;
+                const roleError = document.getElementById('role-error');
+                if (fieldInteractions.role || role) {
+                    if (!role) {
+                        roleError.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        roleError.classList.add('hidden');
+                    }
+                }
+
+                // Update button state
+                submitButton.disabled = !isValid;
+                if (isValid) {
+                    submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                    submitButton.classList.add('hover:bg-[#017B48]', 'hover:text-white');
+                } else {
+                    submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+                    submitButton.classList.remove('hover:bg-[#017B48]', 'hover:text-white');
+                }
+
+                return isValid;
+            }
+
+            // Set up event listeners for all fields
+            form.querySelectorAll('input, select').forEach(field => {
+                field.addEventListener('input', function () {
+                    fieldInteractions[this.id] = true;
+                    validateForm();
+                });
+
+                field.addEventListener('change', function () {
+                    fieldInteractions[this.id] = true;
+                    validateForm();
+                });
+
+                // Validate on blur (when leaving field)
+                field.addEventListener('blur', function () {
+                    if (this.value.trim() === '') {
+                        fieldInteractions[this.id] = true;
+                        validateForm();
+                    }
+                });
+            });
+
+            // Initial validation (disable button by default)
+            submitButton.disabled = true;
+            submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+            submitButton.classList.remove('hover:bg-[#017B48]', 'hover:text-white');
+
+            // Validate when modal opens
+            document.querySelector('[data-modal-toggle="crud-modal-create"]').addEventListener('click',
+                function () {
+                    setTimeout(validateForm, 100);
+                });
+
+            // Final validation on submit
+            form.addEventListener('submit', function (e) {
+                if (!validateForm()) {
+                    e.preventDefault();
+                }
+            });
+        });
+
+    </script>
 </x-app-layout>

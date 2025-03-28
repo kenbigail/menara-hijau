@@ -83,24 +83,24 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-gray-700 text-lg">
-                                        @foreach ($rooms as $room)
+                                        @foreach ($rooms as $item)
                                             <tr class="border-b">
                                                 <!-- Room Name -->
-                                                <td class="p-4 border">{{ $room->name_room }}</td>
+                                                <td class="p-4 border">{{ $item->name_room }}</td>
                                                 <!-- Category -->
-                                                <td class="p-4 border">{{ ucfirst($room->categories) }}</td>
+                                                <td class="p-4 border">{{ ucfirst($item->categories) }}</td>
                                                 <!-- Availability -->
                                                 <td class="p-4 border">
                                                     <span class="px-3 py-1 border 
-                                                        {{ $room->availability == 'available' ? 'border-green-500 text-green-500' : 'border-red-500 text-red-500' }}
+                                                        {{ $item->availability == 'available' ? 'border-green-500 text-green-500' : 'border-red-500 text-red-500' }}
                                                         rounded-lg">
-                                                        {{ ucfirst($room->availability) }}
+                                                        {{ ucfirst($item->availability) }}
                                                     </span>
                                                 </td>
                                                 <!-- Actions Dropdown -->
                                                 <td class="p-4 border">
                                                     <div class="relative">
-                                                        <button id="actionsDropdown{{ $room->id }}" data-dropdown-toggle="dropdownActions{{ $room->id }}"
+                                                        <button id="actionsDropdown{{ $item->id }}" data-dropdown-toggle="dropdownActions{{ $item->id }}"
                                                             class="bg-[#EBF4F0] text-black border focus:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center inline-flex items-center"
                                                             type="button">
                                                             Actions
@@ -111,15 +111,15 @@
                                                             </svg>
                                                         </button>
                                                         <!-- Dropdown Menu -->
-                                                        <div id="dropdownActions{{ $room->id }}"
+                                                        <div id="dropdownActions{{ $item->id }}"
                                                             class="z-10 hidden bg-white divide-y divide-gray-200 rounded-lg shadow-sm w-44">
                                                             <ul class="py-2 text-lg text-gray-700">
                                                                 <li>
-                                                                    <a href="{{ route('rooms.show', $room->id) }}"
+                                                                    <a href="{{ route('rooms.show', $item->id) }}"
                                                                         class="block px-4 py-2 hover:bg-gray-100">Detail</a>
                                                                 </li>
                                                                 <li>
-                                                                    <a href="{{ route('rooms.edit', $room->id) }}"
+                                                                    <a href="{{ route('rooms.edit', $item->id) }}"
                                                                         class="block px-4 py-2 hover:bg-gray-100">Edit</a>
                                                                 </li>
                                                             </ul>

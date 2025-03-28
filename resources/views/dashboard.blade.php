@@ -205,45 +205,33 @@
                                         <th class="p-4 border">Lantai</th>
                                         <th class="p-4 border">Ruangan</th>
                                         <th class="p-4 border">Tenant</th>
-                                        <th class="p-4 border">Tanggal Mulai</th>
-                                        <th class="p-4 border">Tanggal Selesai</th>
+                                        <th class="p-4 border">Period</th>
                                         <th class="p-4 border">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-gray-700 text-lg">
                                     @foreach ($tenants as $tenant)
                                     <tr class="border-b">
-                                        <!-- Lantai -->
+                                        <!-- Floor -->
                                         <td class="p-4 border">{{ $tenant->floor->num_floor }}</td>
-                                        <!-- Ruangan -->
+                                        <!-- Room -->
                                         <td class="p-4 border">{{ $tenant->room->name_room }}</td>
                                         <!-- Tenant -->
                                         <td class="p-4 border">{{ $tenant->name_tenant }}</td>
-                                        <!-- Tanggal Mulai -->
-                                        <td class="p-4 border">{{ $tenant->date_start }}</td>
-                                        <!-- Tanggal Selesai -->
-                                        <td class="p-4 border">{{ $tenant->date_end }}</td>
+                                        <!-- Period -->
+                                        <td class="p-4 border">
+                                            {{ \Carbon\Carbon::parse($tenant->date_start)->format('d M Y') }} -
+                                            {{ \Carbon\Carbon::parse($tenant->date_end)->format('d M Y') }}
+                                        </td>
                                         <!-- Status -->
                                         <td class="p-4 border">
-                                            @php
-                                            $today = now()->toDateString();
-                                            $status = '';
-                                            if ($today < $tenant->date_start) {
-                                                $status = 'waiting';
-                                                } elseif ($today >= $tenant->date_start && $today <= $tenant->date_end)
-                                                    {
-                                                    $status = 'ongoing';
-                                                    } else {
-                                                    $status = 'finished';
-                                                    }
-                                                    @endphp
-                                                    <span class="px-3 py-1 border 
-                                        {{ $status == 'ongoing' ? 'border-green-500 text-green-500' : '' }}
-                                        {{ $status == 'waiting' ? 'border-yellow-400 text-yellow-500' : '' }}
-                                        {{ $status == 'finished' ? 'border-red-500 text-red-500' : '' }}
-                                        rounded-lg">
-                                                        {{ ucfirst($status) }}
-                                                    </span>
+                                            <span class="px-3 py-1 border 
+                                                {{ $tenant->status == 'ongoing' ? 'border-green-500 text-green-500' : '' }}
+                                                {{ $tenant->status == 'waiting' ? 'border-gray-500 text-gray-500' : '' }}
+                                                {{ $tenant->status == 'finished' ? 'border-red-500 text-red-500' : '' }}
+                                                rounded-lg">
+                                                {{ ucfirst($tenant->status) }}
+                                            </span>
                                         </td>
                                     </tr>
                                     @endforeach

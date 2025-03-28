@@ -18,15 +18,15 @@ class Tenant extends Model
         return $this->belongsTo(Room::class, 'id_room');
     }
 
-    public function getStatusAttribute()
-    {
-        $today = now()->toDateString();
-        if ($today < $this->date_start) {
-            return 'waiting';
-        } elseif ($today >= $this->date_start && $today <= $this->date_end) {
-            return 'ongoing';
-        } else {
-            return 'finished';
-        }
-    }
+    // public function getStatusAttribute()
+    // {
+    //     $today = now()->toDateString();
+    //     if ($today < $this->date_start) {
+    //         return 'waiting';
+    //     } elseif ($today >= $this->date_start && $today <= $this->date_end) {
+    //         return 'ongoing';
+    //     } else {
+    //         return 'finished';
+    //     }
+    // }
 }
