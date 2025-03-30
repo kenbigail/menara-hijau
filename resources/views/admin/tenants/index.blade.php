@@ -128,20 +128,6 @@
                             <span id="date_end-error" class="text-red-500 text-sm hidden">Tanggal selesai harus
                                 diisi.</span>
                         </div>
-
-                        <!-- Status -->
-                        <div class="col-span-2">
-                            <label for="status" class="block mb-2 text-sm font-medium text-[#646464]">Status</label>
-                            <select name="status" id="status"
-                                class="border border-[#EEEEEE] text-[#646464] text-sm font-medium rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
-                                required>
-                                <option value="" selected disabled>Pilih Status</option>
-                                <option value="ongoing">Berlangsung</option>
-                                <option value="waiting">Menunggu</option>
-                                <option value="finished">Selesai</option>
-                            </select>
-                            <span id="status-error" class="text-red-500 text-sm hidden">Status harus dipilih.</span>
-                        </div>
                     </div>
                     <!-- Submit Button -->
                     <div class="flex justify-end">
@@ -184,7 +170,7 @@
                         <div id="dropdown"
                             class="z-10 hidden bg-white divide-y divide-gray-200 rounded-lg shadow-sm w-44 max-h-48 overflow-y-auto">
                             <ul class="py-2 text-lg text-gray-700" aria-labelledby="dropdownDefaultButton">
-                                @foreach(['all', 'ongoing', 'waiting', 'finished'] as $s)
+                                @foreach(['all', 'ongoing', 'waiting'] as $s)
                                 <li>
                                     <a href="{{ route('tenants.index', ['status' => $s === 'all' ? null : $s]) }}"
                                         class="block px-4 py-2 hover:bg-gray-100 text-center
@@ -453,17 +439,6 @@
                         } else {
                             document.getElementById('date_end-error').classList.add('hidden');
                         }
-                    }
-                }
-
-                // Validate status selection
-                const statusField = document.getElementById('status');
-                if (fieldInteractions.status || statusField.value) {
-                    if (!statusField.value) {
-                        isValid = false;
-                        document.getElementById('status-error').classList.remove('hidden');
-                    } else {
-                        document.getElementById('status-error').classList.add('hidden');
                     }
                 }
 

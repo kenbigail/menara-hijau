@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Support\Facades\Log;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -10,9 +11,16 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    // ... other code in bootstrap/app.php
-
-// ... rest of the bootstrap/app.php file
+    ->withCommands() // This loads commands from app/Console/Commands
+    ->withSchedule(function ($schedule) {
+        $schedule->command('tenants:update-status')
+            ->dailyAt('0:00')
+            ->timezone('Asia/Jakarta')
+            ->appendOutputTo(storage_path('logs/tenant-status.log'))
+            ->onFailure(function () {
+                Log::error('Tenant status update failed!');
+            });
+    })
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'superAdmin' => \App\Http\Middleware\SuperAdminMiddleware::class,
@@ -20,4 +28,5 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })
+    ->create();

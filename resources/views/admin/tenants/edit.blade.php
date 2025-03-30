@@ -1,3 +1,4 @@
+<!-- resources/views/admin/tenants/edit.blade.php -->
 <x-app-layout>
     <div class="w-screen h-auto bg-slate-50 flex flex-col items-center py-20">
         <div class="w-full max-w-7xl mx-auto flex flex-col justify-between items-start">
@@ -62,16 +63,6 @@
                         <label class="block text-gray-700 font-semibold mb-2">End Date</label>
                         <input type="date" name="date_end" value="{{ $tenant->date_end }}"
                             class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400" required>
-                    </div>
-
-                    <!-- Status Dropdown -->
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-semibold mb-2">Status</label>
-                        <select name="status" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400" required>
-                            <option value="ongoing" {{ $tenant->status == 'ongoing' ? 'selected' : '' }}>Ongoing</option>
-                            <option value="waiting" {{ $tenant->status == 'waiting' ? 'selected' : '' }}>Waiting</option>
-                            <option value="finished" {{ $tenant->status == 'finished' ? 'selected' : '' }}>Finished</option>
-                        </select>
                     </div>
 
                     <!-- Buttons -->
