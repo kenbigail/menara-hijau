@@ -66,6 +66,7 @@ class LantaiController extends Controller
          // Ambil data tenant yang memiliki id_floor yang sama dan id_room yang sesuai
          $tenant = Tenant::where('id_floor', $ruang->id_floor)
                           ->where('id_room', $ruang->id)
+                          ->whereIn('status', ['ongoing', 'waiting'])
                           ->get();
      
          // Pastikan fasilitas dikonversi dari JSON string ke array
