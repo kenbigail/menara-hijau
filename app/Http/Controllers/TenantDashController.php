@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tenant;
 use App\Models\Room;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TenantDashController extends Controller
@@ -19,6 +20,7 @@ class TenantDashController extends Controller
             ->when($status !== 'all', function($query) use ($status) {
                 return $query->where('status', $status);
             })
+            ->where('status', '!=', 'finished') // Always exclude finished tenants
             ->latest()
             ->get();
 
@@ -36,26 +38,33 @@ class TenantDashController extends Controller
     {
         $validated = $request->validate([
             'name_tenant' => 'required|string|max:255',
-            'email' => 'required|email|unique:tenants,email',
+            'email' => 'required|email|unique:tenants',
             'phone' => 'required|string|max:20',
             'id_room' => 'required|exists:rooms,id',
             'id_floor' => 'required|exists:floors,id',
             'date_start' => 'required|date',
-            'date_end' => 'required|date|after_or_equal:date_start',
-            'status' => 'required|in:ongoing,waiting,finished',
+            'date_end' => 'required|date|after_or_equal:date_start'
         ]);
 
-        try {
-            // Create tenant without modifying room availability
-            $tenant = Tenant::create($validated);
+        // Create tenant first without status
+        $tenant = Tenant::create($validated);
 
-            return redirect()->route('tenants.index')
-                ->with('success', 'Tenant successfully added');
+        // Then determine and update status
+        $today = now()->startOfDay();
+        $start = Carbon::parse($tenant->date_start)->startOfDay();
+        $end = Carbon::parse($tenant->date_end)->startOfDay();
 
-        } catch (\Exception $e) {
-            return back()->withInput()
-                ->with('error', 'Failed to add Tenant: ' . $e->getMessage());
+        if ($end->lessThan($today)) {
+            $status = 'finished';
+        } elseif ($today->between($start, $end)) {
+            $status = 'ongoing';
+        } else {
+            $status = 'waiting';
         }
+
+        $tenant->update(['status' => $status]);
+
+        return back()->with('success', "Tenant created! Status: {$status}");
     }
 
     /**
@@ -91,20 +100,26 @@ class TenantDashController extends Controller
             'id_room' => 'required|exists:rooms,id',
             'id_floor' => 'required|exists:floors,id',
             'date_start' => 'required|date',
-            'date_end' => 'required|date|after_or_equal:date_start',
-            'status' => 'required|in:ongoing,waiting,finished',
+            'date_end' => 'required|date|after_or_equal:date_start'
         ]);
 
-        try {
-            $tenant->update($validated);
+        // Update status immediately when dates change
+        $today = Carbon::today();
+        $start = Carbon::parse($validated['date_start']);
+        $end = Carbon::parse($validated['date_end']);
 
-            return redirect()->route('tenants.index')
-                ->with('success', 'Tenant data updated successfully');
-
-        } catch (\Exception $e) {
-            return back()->withInput()
-                ->with('error', 'Failed to update tenant: ' . $e->getMessage());
+        if ($today->greaterThan($end)) {
+            $validated['status'] = 'finished';
+        } elseif ($today->greaterThanOrEqualTo($start) && $today->lessThanOrEqualTo($end)) {
+            $validated['status'] = 'ongoing';
+        } else {
+            $validated['status'] = 'waiting';
         }
+
+        $tenant->update($validated);
+
+        return redirect()->route('tenants.index')
+            ->with('success', 'Tenant updated! Status set to: '.$validated['status']);
     }
 
     /**
