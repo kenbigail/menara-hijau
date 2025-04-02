@@ -22,6 +22,8 @@ Route::resource('lantai', LantaiController::class);
 // Route custom untuk mendapatkan ruangan berdasarkan lantai
 Route::get('/lantai/{floorId}/ruangan', [LantaiController::class, 'getRoomsByFloor']);
 Route::get('/ruang/{roomId}', [LantaiController::class, 'show'])->name('ruang.show');
+Route::get('/rooms/export-available-pdf', [FloorDashController::class, 'exportAvailableRoomsPdf'])
+->name('rooms.export-pdf');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

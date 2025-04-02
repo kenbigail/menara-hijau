@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withCommands() // This loads commands from app/Console/Commands
     ->withSchedule(function ($schedule) {
         $schedule->command('tenants:update-status')
-            ->dailyAt('0:00')
+            ->everyMinute()
             ->timezone('Asia/Jakarta')
             ->appendOutputTo(storage_path('logs/tenant-status.log'))
             ->onFailure(function () {

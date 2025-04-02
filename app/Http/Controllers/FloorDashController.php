@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Floor;
 use App\Models\Room;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon as Carbon;
 use Illuminate\Http\Request;
 
 class FloorDashController extends Controller
@@ -69,5 +71,33 @@ class FloorDashController extends Controller
         ]);
 
         return redirect()->route('rooms.index')->with('success', 'Room updated successfully!');
+    }
+
+    public function exportAvailableRoomsPdf()
+    {
+        // Get all available rooms
+        $availableRooms = Room::with('floor')
+            ->where('availability', 'available')
+            ->orderBy('id_floor')
+            ->get();
+
+        // Count available rooms by category
+        $roomCounts = [
+            'ballroom' => Room::where('availability', 'available')->where('categories', 'ballroom')->count(),
+            'office room' => Room::where('availability', 'available')->where('categories', 'office room')->count(),
+            'working space' => Room::where('availability', 'available')->where('categories', 'working space')->count(),
+            'total' => Room::where('availability', 'available')->count()
+        ];
+
+        $data = [
+            'title' => 'Available Rooms',
+            'subtitle' => 'PT. Graha Menara Hijau',
+            'date' => Carbon::now()->format('d F Y H:i:s'),
+            'rooms' => $availableRooms,
+            'counts' => $roomCounts
+        ];
+
+        $pdf = Pdf::loadView('admin.rooms.available-pdf', $data);
+        return $pdf->download('available-rooms-'.now()->format('YmdHis').'.pdf');
     }
 }
