@@ -86,15 +86,15 @@ $(document).ready(function() {
                             // let bgColor;
     
                             // if (availability === 'available') {
-                            //     bgColor = 'bg-green-500 hover:bg-green-600';
+                            //     bgColor = 'bg-green-200 hover:bg-green-300';
                             // } else if (availability === 'unavailable') {
-                            //     bgColor = 'bg-red-500 hover:bg-red-600';
+                            //     bgColor = 'bg-red-200 hover:bg-red-300';
                             // } else {
                             //     bgColor = 'bg-gray-500 hover:bg-gray-600';
                             // }
     
                             var roomButton = `
-                                <a href="/ruang/${room.id}" class="flex items-center justify-center text-black text-xl font-bold transition-all p-6 bg-gray-50 border hover:bg-gray-100"
+                                <a href="/ruang/${room.id}" class="flex items-center justify-center text-black text-xl font-bold transition-all p-6 border border-gray-300 bg-gray-200 hover:bg-gray-100"
                                     style="grid-column: ${room.grid_col}; grid-row: ${room.grid_row};">
                                     ${room.nama_ruang}
                                 </a>

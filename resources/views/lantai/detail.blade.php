@@ -11,7 +11,7 @@
              
 
             </div>
-            <div class="w-full h-[550px] grid grid-cols-3 grid-rows-2 gap-5 max-lg:grid-cols-2 max-lg:px-5">
+            {{-- <div class="w-full h-[550px] grid grid-cols-3 grid-rows-2 gap-5 max-lg:grid-cols-2 max-lg:px-5">
                 <div class="rounded-md border col-span-2 row-span-2 flex justify-center items-center max-lg:row-span-1">
                     <h1 class="text-2xl">Foto Ruangan</h1>
                 </div>
@@ -21,7 +21,7 @@
                 <div class="rounded-md border flex justify-center items-center">
                     <h1 class="text-2xl">Foto Ruangan</h1>
                 </div>
-            </div>
+            </div> --}}
             <div class="w-full h-[150px] grid grid-cols-2 py-5 border-b max-lg:px-5 max-md:grid-cols-1 max-lg:h-auto max-lg:border-0 max-lg:gap-5">
                 <div class="flex justify-start items-start flex-col gap-4">
                     <h1 class="text-4xl font-bold">Ruang {{$ruang->name_room}}</h1>
