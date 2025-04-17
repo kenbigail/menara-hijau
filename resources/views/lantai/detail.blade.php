@@ -11,17 +11,12 @@
              
 
             </div>
-            {{-- <div class="w-full h-[550px] grid grid-cols-3 grid-rows-2 gap-5 max-lg:grid-cols-2 max-lg:px-5">
-                <div class="rounded-md border col-span-2 row-span-2 flex justify-center items-center max-lg:row-span-1">
-                    <h1 class="text-2xl">Foto Ruangan</h1>
+            <div class="w-full h-[550px] flex justify-center items-center">
+                <div class="w-full h-full rounded-md border flex justify-center items-center overflow-hidden">
+                    {{-- !! Image Masih Template !! --}}
+                    <img class="h-full w-full object-contain" src="https://media-hosting.imagekit.io/d2d02382629f4117/G01.png?Expires=1839462158&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=kvPRI75rNSWDUSx3qbcv5Mk9W4Pho0Xs9zThpxL7K3JugdDNvE1m~9mvfP77ZqONoZEGrbGzP96oG7s6-Ry9G1YfGyejc4Pp8sR-oAxV~eaYiIDj4bX0MAbNqVqqhBoV7eVSKCgzofJmt74K-BrM2jx1J2pjruCiZSCOickTiz13ITYr1a0iXocb0U-2w~eDmAApPay76Hu6LxsbtbWwtLrOcz3Zg-2IKpGNQLEpCkGj1~TXcCrX68opqFwroaH-9jwrzLswYYqzCaeg1eG1djv0QxKUBhSeB~js~6BHurWI0eif7SejgGyoRoxnjBNvp5F-h5mb9frVnQvlC7~SyA__" alt="">
                 </div>
-                <div class="rounded-md border flex justify-center items-center">
-                    <h1 class="text-2xl">Foto Ruangan</h1>
-                </div>
-                <div class="rounded-md border flex justify-center items-center">
-                    <h1 class="text-2xl">Foto Ruangan</h1>
-                </div>
-            </div> --}}
+            </div>
             <div class="w-full h-[150px] grid grid-cols-2 py-5 border-b max-lg:px-5 max-md:grid-cols-1 max-lg:h-auto max-lg:border-0 max-lg:gap-5">
                 <div class="flex justify-start items-start flex-col gap-4">
                     <h1 class="text-4xl font-bold">Ruang {{$ruang->name_room}}</h1>
