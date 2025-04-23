@@ -82,19 +82,19 @@ $(document).ready(function() {
                         $('#roomsContainer').html('');
     
                         data.forEach(function(room) {
-                            // let availability = room.availability ? room.availability.trim().toLowerCase() : "";
-                            // let bgColor;
+                            let availability = room.availability ? room.availability.trim().toLowerCase() : "";
+                            let bgColor;
     
-                            // if (availability === 'available') {
-                            //     bgColor = 'bg-green-200 hover:bg-green-300';
-                            // } else if (availability === 'unavailable') {
-                            //     bgColor = 'bg-red-200 hover:bg-red-300';
-                            // } else {
-                            //     bgColor = 'bg-gray-500 hover:bg-gray-600';
-                            // }
+                            if (availability === 'available') {
+                                bgColor = 'bg-green-200 hover:bg-green-300';
+                            } else if (availability === 'unavailable') {
+                                bgColor = 'bg-red-200 hover:bg-red-300';
+                            } else {
+                                bgColor = 'bg-gray-500 hover:bg-gray-600';
+                            }
     
                             var roomButton = `
-                                <a href="/ruang/${room.id}" class="flex items-center justify-center text-black text-xl font-bold transition-all p-6 border border-gray-300 bg-gray-200 hover:bg-gray-100"
+                                <a href="/ruang/${room.id}" class="flex items-center justify-center text-black text-xl font-bold transition-all p-6 border border-gray-300 bg-gray-200 hover:${bgColor}"
                                     style="grid-column: ${room.grid_col}; grid-row: ${room.grid_row};">
                                     ${room.nama_ruang}
                                 </a>
