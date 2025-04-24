@@ -94,7 +94,7 @@ $(document).ready(function() {
                             }
     
                             var roomButton = `
-                                <a href="/ruang/${room.id}" class="flex items-center justify-center text-black text-xl font-bold transition-all p-6 border border-gray-300 bg-gray-200 hover:${bgColor}"
+                                <a href="/ruang/${room.id}" class="flex items-center justify-center text-black text-xl font-bold transition-all p-6 border border-gray-300 ${bgColor}"
                                     style="grid-column: ${room.grid_col}; grid-row: ${room.grid_row};">
                                     ${room.nama_ruang}
                                 </a>
