@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_floor');
             $table->string('name_room');
-            $table->json('images')->nullable();
+            $table->string('images')->nullable();
             $table->text('facilities');
             $table->string('contact');
             $table->string('size');
