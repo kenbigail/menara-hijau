@@ -25,7 +25,7 @@
                             @foreach ($lantai as $item)
                             <li>
                                 <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-center select-floor"
-                                   data-id="{{$item->id}}" data-floor="{{$item->num_floor}}">
+                                   data-id="{{$item->id}}" data-floor="{{$item->num_floor}}" data-image="{{$item->images}}">
                                     {{$item->num_floor}}
                                 </a>
                             </li>
@@ -35,43 +35,61 @@
                 </div>
             </div>
 
-
             <!-- Container untuk Menampilkan Nama Lantai dan Ruangan -->
-            <div id="roomsContainer" class="grid grid-cols-12 grid-rows-12 w-full h-[800px] max-md:h-[300px] bg-white border relative max-md:w-[95%]">
+            <div id="roomsContainer" class="grid grid-cols-[repeat(100,1fr)] grid-rows-[repeat(100,1fr)] w-full h-[800px] max-md:h-[300px] border relative max-md:w-[95%]">
                 <p id="noRoomsMessage" class="text-gray-400 italic mt-5 hidden">Tidak ada ruangan untuk lantai ini.</p>
-           </div>
+            </div>
 
         </div>
     </div>
 
+    <style>
+        .hover-text-shadow:hover {
+          text-shadow: 0px 3px 15px rgba(115, 115, 115, 0.794);
+        }
+      </style>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-$(document).ready(function() {
-    var defaultFloor = $('.select-floor[data-id="1"]');
-    if (defaultFloor.length) {
-        var floorId = defaultFloor.data('id');
-        var floorName = defaultFloor.data('floor');
+        $(document).ready(function() {
+            var defaultFloor = $('.select-floor[data-id="1"]');
+            if (defaultFloor.length) {
+                var floorId = defaultFloor.data('id');
+                var floorName = defaultFloor.data('floor');
+                var floorImage = defaultFloor.data('image'); // Ambil gambar dari data lantai
 
-        $('#selectedFloor').text(floorName); // Menampilkan lantai yang dipilih
-        fetchRooms(floorId);
-    }
-});
+                $('#selectedFloor').text(floorName); // Menampilkan lantai yang dipilih
+                setBackgroundImage(floorImage); // Set background untuk lantai default
+                fetchRooms(floorId);
+            }
+        });
 
         // Menampilkan dropdown saat tombol diklik
         $('#floorDropdownBtn').click(function() {
             $('#floorDropdownMenu').toggleClass('hidden');
         });
-    
+
         // Menangani pemilihan lantai
         $('.select-floor').click(function() {
             var floorId = $(this).data('id');
             var floorName = $(this).data('floor');
-    
+            var floorImage = $(this).data('image'); // Ambil gambar dari data lantai yang dipilih
+
             $('#selectedFloor').text(floorName);
+            setBackgroundImage(floorImage); // Set background dengan gambar yang sesuai
             fetchRooms(floorId);
             $('#floorDropdownMenu').addClass('hidden');
         });
-    
+
+        // Fungsi untuk mengatur background image
+        function setBackgroundImage(imageUrl) {
+            $('#roomsContainer').css({
+                'background-image': "url('" + imageUrl + "')",
+                'background-size': 'cover',
+                'background-position': 'center'
+            });
+        }
+
         function fetchRooms(floorId) {
             $.ajax({
                 url: '/lantai/' + floorId + '/ruangan',
@@ -80,11 +98,11 @@ $(document).ready(function() {
                     if (data.length > 0) {
                         $('#noRoomsMessage').addClass('hidden');
                         $('#roomsContainer').html('');
-    
+
                         data.forEach(function(room) {
                             let availability = room.availability ? room.availability.trim().toLowerCase() : "";
                             let bgColor;
-    
+
                             if (availability === 'available') {
                                 bgColor = 'bg-green-200 hover:bg-green-300';
                             } else if (availability === 'unavailable') {
@@ -92,11 +110,12 @@ $(document).ready(function() {
                             } else {
                                 bgColor = 'bg-gray-500 hover:bg-gray-600';
                             }
-    
+
                             var roomButton = `
-                                <a href="/ruang/${room.id}" class="flex items-center justify-center text-black text-xl font-bold transition-all p-6 border border-gray-300 ${bgColor}"
+                                <a href="/ruang/${room.id}" class="flex flex-col items-center justify-center text-black text-lg font-bold transition-all p-6 hover:text-xl hover-text-shadow"
                                     style="grid-column: ${room.grid_col}; grid-row: ${room.grid_row};">
                                     ${room.nama_ruang}
+                                    <span class="text-xs font-medium">${room.size} m2</span>
                                 </a>
                             `;
                             $('#roomsContainer').append(roomButton);
@@ -112,6 +131,4 @@ $(document).ready(function() {
             });
         }
     </script>
-    
-
 </x-app-layout>
