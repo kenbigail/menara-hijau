@@ -57,7 +57,7 @@
                         <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                             {{ __('Manage Users') }}
                         </x-nav-link>
-                    @endif 
+                    @endif  
                     @endif
 
                     <!-- User Settings Dropdown -->
