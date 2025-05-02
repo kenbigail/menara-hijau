@@ -20,16 +20,17 @@ class DashboardController extends Controller
         // Fetch only 5 available rooms with related floor information
         $availableRoomsData = Room::with('floor')
             ->where('availability', 'available')
-            ->take(5) // Limit to 5 records
+            ->take(5)
             ->get();
 
-        // Fetch only 5 tenants with related floor and room information
+        // Fetch tenants that are either waiting or ongoing
         $tenants = Tenant::with(['floor', 'room'])
-            ->where('date_end', '>=', now()->toDateString()) // Filter out finished tenants
-            ->take(5) // Limit to 5 records
+            ->whereIn('status', ['waiting', 'ongoing'])
+            ->where('date_end', '>=', now()->toDateString())
+            ->orderBy('date_start')
+            ->take(5)
             ->get();
 
-        // Pass all data to the view
         return view('dashboard', compact(
             'floorsCount',
             'roomsCount',
