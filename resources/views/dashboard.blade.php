@@ -162,8 +162,7 @@
 
         <!-- Table Ruangan Reserved -->
         <div class="max-w-7xl mx-auto w-full flex flex-col justify-between items-center py-5 mb-5">
-            <div
-                class="w-full h-auto bg-white rounded-lg border-[#eeeeee] border-2 flex justify-center items-center py-10">
+            <div class="w-full h-auto bg-white rounded-lg border-[#eeeeee] border-2 flex justify-center items-center py-10">
                 <div class="w-[90%] h-full flex flex-col justify-start">
                     <div class="flex flex-row w-full justify-between items-center">
                         <p class="font-medium text-2xl">
@@ -175,7 +174,6 @@
                     </div>
                     <div class="mt-10 h-[1.5px] w-full bg-[#EEEEEE]"></div>
 
-                    <!-- "Lihat Semua" Button (Conditional) -->
                     @if (!$tenants->isEmpty())
                     <div class="w-full flex justify-end mt-5">
                         <a href="{{ route('tenants.index') }}"
@@ -190,11 +188,9 @@
                     </div>
                     @endif
 
-                    <!-- Reserved Rooms Table -->
                     <div class="w-full grid grid-cols-1 py-5 max-lg:px-5 max-lg:border-0 gap-5">
                         <div class="w-full overflow-x-auto">
                             @if ($tenants->isEmpty())
-                            <!-- Empty State -->
                             <div class="text-center text-gray-500 py-5">
                                 No reserved rooms found.
                             </div>
@@ -212,24 +208,22 @@
                                 <tbody class="text-gray-700 text-lg">
                                     @foreach ($tenants as $tenant)
                                     <tr class="border-b">
-                                        <!-- Floor -->
-                                        <td class="p-4 border">{{ $tenant->floor->num_floor }}</td>
-                                        <!-- Room -->
-                                        <td class="p-4 border">{{ $tenant->room->name_room }}</td>
-                                        <!-- Tenant -->
+                                        <td class="p-4 border">{{ $tenant->floor->num_floor ?? 'N/A' }}</td>
+                                        <td class="p-4 border">{{ $tenant->room->name_room ?? 'N/A' }}</td>
                                         <td class="p-4 border">{{ $tenant->name_tenant }}</td>
-                                        <!-- Period -->
                                         <td class="p-4 border">
                                             {{ \Carbon\Carbon::parse($tenant->date_start)->format('d M Y') }} -
                                             {{ \Carbon\Carbon::parse($tenant->date_end)->format('d M Y') }}
                                         </td>
-                                        <!-- Status -->
                                         <td class="p-4 border">
-                                            <span class="px-3 py-1 border 
-                                                {{ $tenant->status == 'ongoing' ? 'border-green-500 text-green-500' : '' }}
-                                                {{ $tenant->status == 'waiting' ? 'border-gray-500 text-gray-500' : '' }}
-                                                {{ $tenant->status == 'finished' ? 'border-red-500 text-red-500' : '' }}
-                                                rounded-lg">
+                                            @php
+                                                $statusClasses = [
+                                                    'ongoing' => 'bg-green-100 text-green-800 border-green-300',
+                                                    'waiting' => 'bg-yellow-100 text-yellow-800 border-yellow-300',
+                                                    'finished' => 'bg-red-100 text-red-800 border-red-300'
+                                                ];
+                                            @endphp
+                                            <span class="px-3 py-1 rounded-lg border {{ $statusClasses[$tenant->status] ?? '' }}">
                                                 {{ ucfirst($tenant->status) }}
                                             </span>
                                         </td>
