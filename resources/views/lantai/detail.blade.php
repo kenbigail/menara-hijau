@@ -31,7 +31,7 @@
                     </a>
                 </div>
             </div>
-            <div class="w-full grid grid-cols-1 py-5 border-b max-lg:px-5 max-lg:border-0 gap-5">
+            {{-- <div class="w-full grid grid-cols-1 py-5 border-b max-lg:px-5 max-lg:border-0 gap-5">
                 <h1 class="text-4xl font-bold w-full text-left">Jadwal Ruangan</h1>
                 <div class="w-full overflow-x-auto">
                     <table class="min-w-[800px] w-full border-collapse border border-gray-200">
@@ -65,7 +65,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
