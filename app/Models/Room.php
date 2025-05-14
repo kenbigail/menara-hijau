@@ -19,7 +19,6 @@ class Room extends Model
     ];
 
     protected $casts = [
-        'images' => 'array',
         'facilities' => 'array',
     ];
 
