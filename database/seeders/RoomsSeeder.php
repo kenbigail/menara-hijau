@@ -27,8 +27,8 @@ class RoomsSeeder extends Seeder
                 Room::create([
                     'id_floor'     => $room['id_floor'],
                     'name_room'    => $room['name_room'],
-                    'images'       => is_array($room['images']) ? $room['images'] : json_decode($room['images'], true) ?? [],
-                    'facilities'   => is_array($room['facilities']) ? $room['facilities'] : json_decode($room['facilities'], true) ?? [],
+                    'images'       => $room['images'],
+                    'facilities'   => json_decode($room['facilities'], true),
                     'contact'      => $room['contact'],
                     'size'         => $room['size'],
                     'categories'   => $room['categories'],
