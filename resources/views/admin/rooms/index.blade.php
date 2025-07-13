@@ -26,15 +26,30 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
             </button>
-            <button onclick="window.location.href='{{ route('rooms.export-pdf') }}'"
-                class="flex items-center gap-2 px-5 py-4 bg-[#EBF4F0] text-[#017B48] hover:bg-[#017B48] hover:text-white transition-colors font-medium text-lg rounded-lg whitespace-nowrap"
-                type="button">
-                <span>Export PDF (Available)</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                </svg>
-            </button>
+            <div class="relative inline-block text-left">
+                <button id="exportDropdownButton" data-dropdown-toggle="exportDropdownMenu"
+                    class="flex items-center gap-2 px-5 py-4 bg-[#EBF4F0] text-[#017B48] hover:bg-[#017B48] hover:text-white transition-colors font-medium text-lg rounded-lg whitespace-nowrap"
+                    type="button">
+                    <span>Export / Import</span>
+                    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <!-- Dropdown Menu -->
+                <div id="exportDropdownMenu" class="z-10 hidden bg-white divide-y divide-gray-200 rounded-lg shadow-sm w-56 absolute right-0 mt-2">
+                    <ul class="py-2 text-lg text-gray-700">
+                        <li>
+                            <a href="{{ route('rooms.export-pdf') }}" class="block px-4 py-2 hover:bg-gray-100">Export PDF (Available)</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('rooms.export-excel') }}" class="block px-4 py-2 hover:bg-gray-100">Export Excel</a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="document.getElementById('importForm').style.display='block'; document.querySelector('#importForm input[type=file]').click(); return false;" class="block px-4 py-2 hover:bg-gray-100">Import Excel</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
         <div class="max-w-7xl mx-auto w-full flex flex-col justify-between items-center py-5 mb-5">
             <div
@@ -150,4 +165,8 @@
             </div>
         </div>
     </div>
+    <form id="importForm" action="{{ route('rooms.import-excel') }}" method="POST" enctype="multipart/form-data" style="display:none;">
+        @csrf
+        <input type="file" name="import_file" accept=".xlsx,.xls,.csv" required onchange="document.getElementById('importForm').submit();">
+    </form>
 </x-app-layout>

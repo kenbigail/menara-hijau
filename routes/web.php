@@ -24,6 +24,8 @@ Route::get('/lantai/{floorId}/ruangan', [LantaiController::class, 'getRoomsByFlo
 Route::get('/ruang/{roomId}', [LantaiController::class, 'show'])->name('ruang.show');
 Route::get('/rooms/export-available-pdf', [FloorDashController::class, 'exportAvailableRoomsPdf'])
 ->name('rooms.export-pdf');
+Route::get('/rooms/export-excel', [App\Http\Controllers\FloorDashController::class, 'exportExcel'])->name('rooms.export-excel');
+Route::post('/rooms/import-excel', [App\Http\Controllers\FloorDashController::class, 'importExcel'])->name('rooms.import-excel');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

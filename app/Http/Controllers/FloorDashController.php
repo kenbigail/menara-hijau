@@ -7,6 +7,9 @@ use App\Models\Room;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon as Carbon;
 use Illuminate\Http\Request;
+use App\Exports\RoomsExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\RoomsImport;
 
 class FloorDashController extends Controller
 {
@@ -99,5 +102,24 @@ class FloorDashController extends Controller
 
         $pdf = Pdf::loadView('admin.rooms.available-pdf', $data);
         return $pdf->download('available-rooms-'.now()->format('YmdHis').'.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new RoomsExport, 'export-rooms-'.now()->format('YmdHis').'.xlsx');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'import_file' => 'required|file|mimes:xlsx,xls,csv',
+        ]);
+
+        try {
+            Excel::import(new RoomsImport, $request->file('import_file'));
+            return back()->with('success', 'Rooms updated successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Import failed: ' . $e->getMessage());
+        }
     }
 }
